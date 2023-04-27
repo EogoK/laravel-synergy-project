@@ -13,6 +13,17 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
+            $table->text('name');
+            $table->text('surname');
+            $table->text('patonymic');
+            $table->integer('passport');
+            $table->text('email')->unique();
+            $table->text('password');
+            $table->integer("age")->default(null);
+            $table->text("book")->default(null);
+            $table->text("university")->default(null);
+            $table->text("status")->default(null);
+            $table->text("bank_card")->default(null);
             $table->timestamps();
         });
     }
