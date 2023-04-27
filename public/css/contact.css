@@ -1,0 +1,45 @@
+*{
+    padding: 0;
+    margin: 0;
+  }
+  
+  body{
+    background: #2c50ee;
+  }
+  .main{
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: center;
+    margin-top: 20%;
+  }
+  
+  .title{
+    width: 17ch;
+    overflow: hidden;
+    color: white;
+    font-size: 40px;
+    font-family: monospace;
+    white-space: nowrap;
+    border-right: 4px solid white;
+    animation: printed-text 3s steps(17),
+               flashin-border .75s step-start infinite;
+  }
+  
+  @keyframes flashin-border{
+    0%{
+      border-color: transparent;
+    }
+    50%{
+        border-color: white;
+    }
+    100%{
+        border-color: transparent;
+      }
+  }
+  
+  @keyframes printed-text{
+    from {
+      width: 0%;
+    }
+  }
