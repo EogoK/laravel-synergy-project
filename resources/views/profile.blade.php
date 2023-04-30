@@ -18,30 +18,33 @@
                 <a href="/profile">Профиль</a>
                 <a href="/logout">Выйти</a>
             </nav>
+            <form action="update" method="POST">
+            {!! csrf_field() !!}
             <div id="change">
-            <div>
-            <p>Профиль</p>
-            <form class="change-data">
-                <input type="text" placeholder="E-mail">
-                <input type="text" placeholder="Фамилия">
-                <input type="text" placeholder="Имя">
-                <input type="text" placeholder="Отчество">
-                <input type="text" placeholder="Паспорт">
-                <button>Сохранить</button>
+                <div>
+                    <p>Профиль</p>
+                    <div class="change-data">
+                        <input type="email" placeholder="E-mail" name="email" value='{{Auth::user()->email}}'>
+                        <input type="text" placeholder="Фамилия" name="surname" value='{{Auth::user()->surname}}'>
+                        <input type="text" placeholder="Имя" name="name" value='{{Auth::user()->name}}'>
+                        <input type="text" placeholder="Отчество" name="patonymic" value='{{Auth::user()->patonymic}}'>
+                        <input type="text" placeholder="Паспорт" name="passport" value='{{Auth::user()->passport}}'>
+                        <button>Сохранить</button>
+                    </div>
+                </div>
+                <div>
+                <p>Анкета</p>
+                    <div class="change-data">
+                        <input type="text" placeholder="Возраст" name="age" value='{{Auth::user()->age}}'>
+                        <input type="text" placeholder="Любимые книги" name="book" value='{{Auth::user()->book}}'>
+                        <input type="text" placeholder="Университет" name="university" value='{{Auth::user()->university}}'>
+                        <input type="text" placeholder="Статус" name="status" value='{{Auth::user()->status}}'>
+                        <input type="text" placeholder="Банковская карта" name="bank_card" value='{{Auth::user()->bank_card}}'>
+                        <button>Сохранить</button>
+                    </div>
+                </div>
+            </div>
             </form>
-            </div>
-            <div>
-            <p>Анкета</p>
-            <form class="change-data">
-                <input type="text" placeholder="Возраст">
-                <input type="text" placeholder="Любимые книги">
-                <input type="text" placeholder="Университет">
-                <input type="text" placeholder="Статус">
-                <input type="text" placeholder="Банковская карта">
-                <button>Сохранить</button>
-            </form>
-            </div>
-            </div>
 
         </div>
     </body>

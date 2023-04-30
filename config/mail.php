@@ -36,11 +36,11 @@ return [
     'mailers' => [
         'smtp' => [
             'transport' => 'smtp',
-            'host' => env('MAIL_HOST', 'smtp.yandex.com'),
+            'host' => env('MAIL_HOST', 'smtp.mail.ru'),
             'port' => env('MAIL_PORT', 465),
             'encryption' => env('MAIL_ENCRYPTION', 'ssl '),
-            'username' => env('MAIL_USERNAME'),
-            'password' => env('MAIL_PASSWORD'),
+            'username' => env('MAIL_USERNAME', 'yegor.zhdanov.2023@inbox.ru'),
+            'password' => env('MAIL_PASSWORD', 'GVsrqzwNF07pHqDzkqhx'),
             'timeout' => null,
             'local_domain' => env('MAIL_EHLO_DOMAIN'),
         ],
@@ -98,8 +98,8 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
-        'name' => env('MAIL_FROM_NAME', 'Example'),
+        'address' => env('MAIL_FROM_ADDRESS', 'yegor.zhdanov.2023@inbox.ru'),
+        'name' => env('MAIL_FROM_NAME', 'Egorchik'),
     ],
 
     /*

@@ -18,6 +18,9 @@
                 <a href="/profile">Профиль</a>
                 <a href="/logout">Выйти</a>
             </nav>
+            <img src="data/bern.jpg"></img>
+            <div id="bern">🟠</div>
         </div>
+        <script src="{{asset('js/bern.js')}}"></script>
     </body>
 </html>

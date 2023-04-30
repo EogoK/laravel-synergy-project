@@ -30,23 +30,38 @@ Route::middleware('guest')->namespace('\App\Http\Controllers')->group(function()
 	});
 	
 	Route::post('/register', 'AuthController@postRegister');
+	
 });
 
 Route::middleware("auth")->namespace('\App\Http\Controllers')->group(function() {
 	Route::get('/logout', 'AuthController@perform');
+	Route::post('/update', 'AuthController@updateData');
  });
 
 
-Route::get('/main', function(){
-    echo view("main");
+ Route::get('/main', function(){
+	if(Auth::user()){
+		echo view("main");
+	}
+	else{
+		echo view("login");
+	}
 });
 
 
 Route::get('/profile', function(){
-    echo view("profile");
+	if(Auth::user()){
+		echo view("profile");
+	}
+	else{
+		echo view("login");
+	}
 });
 
 Route::get('/contact', function(){
-    echo view("contact");
+	if(Auth::user()){
+		echo view("contact");
+	}else{
+		echo view("login");
+	}
 });
-

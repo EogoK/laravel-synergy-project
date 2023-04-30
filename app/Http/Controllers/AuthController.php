@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\sendMail;
+
+use \stdClass;
+
 use Mail;
 
 use Illuminate\Http\Request;
@@ -17,18 +21,17 @@ class AuthController extends Controller
 	
     public function postSignIn(Request $request)
     {
-		
-		if (! Auth::attempt($request->only('email', 'password')))
+
+		if (Auth::attempt($request->only('email', 'password')))
 		{
-            echo "<script>console.log('Вы ввели не правильный логин или пароль');</script>";
-            return redirect("/login");
+            return redirect("/main");
 		}
 		
 	
 
 		else {
-		echo 'Вы успешно авторизовались';
-    }
+            return redirect('/login')->with("alert", "Неверный логин или пароль");
+        }
 	}
 
     public function postRegister(Request $request){
@@ -40,6 +43,10 @@ class AuthController extends Controller
         $passport = $request->input("passport");
 
         $password = Str::random(16);
+        
+        if(User::where('email','=',$email)->count()){
+            return redirect('/register')->with("alert", "Пользователь уже существует");
+        }
 
         $user = User::create([
             'email'    => $email,
@@ -50,15 +57,17 @@ class AuthController extends Controller
             'passport' =>  $passport
         ]);
 
-        Auth::loginUsingId($user->id);
+        #Auth::loginUsingId($user->id);
 
-        Mail::send(`Ваш пароль {$password}`, ['user' => $user], function ($m) use ($user) {
-            $message->from(env('MAIL_USERNAME'), 'Laravel');
-            
-            $message->to($user->email);
-        });
-
-        return redirect()->route('main')->view("main");
+        $data = new stdClass();
+        $data->password = $password;
+        $data->name = $name;
+        $data->email = $email;
+        Mail::to($data->email)->send(new sendMail($data));
+        
+        if (Auth::attempt(['email' => $email, 'password' => $password])) {
+            return redirect("/main");
+        }
     }
 
 
@@ -68,6 +77,42 @@ class AuthController extends Controller
         
         Auth::logout();
 
-        return redirect('login');
+        return redirect('/login');
+    }
+
+
+    public function updateData(Request $request){
+
+        $request->validate([
+            'name' =>'required|string|max:255',
+            'email'=>'required|email|string|max:255',
+            'surname'=>'required|string|max:255',
+            'patonymic'=>'required|string|max:255',
+            'passport'=>'required|integer',
+            'age'=>'nullable|integer',
+            'book'=>'nullable|string|max:255',
+            'university'=>'nullable|string|max:255',
+            'status'=>'nullable|string|max:255',
+            'bank_card'=>'nullable|string|max:255'
+        ]);
+
+        $user =Auth::user();
+        $user->name = $request['name'];
+        $user->email = $request['email'];
+        $user->surname = $request["surname"];
+        $user->patonymic  = $request["patonymic"];
+        $user->passport = $request["passport"];
+
+        $user->age = $request['age'];
+        $user->book = $request['book'];
+        $user->university = $request["university"];
+        $user->status  = $request["status"];
+        $user->bank_card  = $request["bank_card"];
+
+
+        $user->update($request->all());
+
+
+        return redirect("/profile");
     }
 }
