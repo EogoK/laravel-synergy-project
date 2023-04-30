@@ -36,11 +36,11 @@ return [
     'mailers' => [
         'smtp' => [
             'transport' => 'smtp',
-            'host' => env('MAIL_HOST', 'smtp.mail.ru'),
+            'host' => env('MAIL_HOST'),
             'port' => env('MAIL_PORT', 465),
             'encryption' => env('MAIL_ENCRYPTION', 'ssl '),
-            'username' => env('MAIL_USERNAME', 'yegor.zhdanov.2023@inbox.ru'),
-            'password' => env('MAIL_PASSWORD', 'GVsrqzwNF07pHqDzkqhx'),
+            'username' => env('MAIL_USERNAME'),
+            'password' => env('MAIL_PASSWORD'),
             'timeout' => null,
             'local_domain' => env('MAIL_EHLO_DOMAIN'),
         ],
